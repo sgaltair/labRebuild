@@ -2,7 +2,7 @@ version: '3.3'
 services:
     linuxserver:
         container_name: jellyfin
-        hostname: f8f20cd83278
+        hostname: jellyfin
         environment:
             - PUID=1000
             - PGID=1000

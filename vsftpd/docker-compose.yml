@@ -2,7 +2,7 @@ version: '3.3'
 services:
     usr:
         container_name: vsftpd
-        hostname: 9afd7400498e
+        hostname: vsftpd
         environment:
             - FTP_PASS=LtGuhjGidFo3ceo7
         volumes:
@@ -13,5 +13,5 @@ services:
         ports:
             - '20:20'
             - '21:21'
-        restart: always
-        image: /usr/sbin/run-vsftpd.sh
+        restart: unless-stopped
+        image: fauria/vsftpd

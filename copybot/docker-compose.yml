@@ -2,7 +2,7 @@ version: '3.3'
 services:
     src:
         container_name: copybot
-        hostname: 5413a140dd9c
+        hostname: copybot
         environment:
             - NODE_VERSION=18.8.0
         network_mode: bridge

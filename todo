@@ -4,7 +4,7 @@ Other containers:
     work:
         caddy
         copybot
-        vsftpd
+        fauria/vsftpd
     else:
         filebrowser/filebrowser
         containrrr/watchtower

@@ -1,1 +1,30 @@
-docker run --name=pwndrop --hostname=851fe6dfab60 --env=SECRET_PATH=/pwndrop --env=PUID=1000 --env=PGID=1000 --env=TZ=Europe/London --volume=/path/to/appdata:/config:rw --volume=/config --network=pwndrop_default --workdir=/ --expose=4443 -p 8060:8080 --restart=unless-stopped --label='com.docker.compose.config-hash=3ffd7f0ca7e17c17416103d02f971d7e305b7efce474e42a7e9a05ec491807be' --label='com.docker.compose.version=2.5.1' --label='com.docker.compose.project.working_dir=/data/compose/27' --label='com.docker.compose.project.config_files=/data/compose/27/docker-compose.yml' --label='com.docker.compose.oneoff=False' --label='com.docker.compose.depends_on=' --label='com.docker.compose.container-number=1' --label='com.docker.compose.project=pwndrop' --label='com.docker.compose.service=pwndrop' --runtime=runc lscr.io/linuxserver/pwndrop:latest 
+version: '3.3'
+services:
+    linuxserver:
+        container_name: pwndrop
+        hostname: pwndrop
+        environment:
+            - SECRET_PATH=/pwndrop
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/London
+        volumes:
+            - '/path/to/appdata:/config:rw'
+            - /config
+        network_mode: pwndrop_default
+        expose:
+            - '4443'
+        ports:
+            - '8060:8080'
+        restart: unless-stopped
+        labels:
+            - com.docker.compose.config-hash=3ffd7f0ca7e17c17416103d02f971d7e305b7efce474e42a7e9a05ec491807be
+            - com.docker.compose.version=2.5.1
+            - com.docker.compose.project.working_dir=/data/compose/27
+            - com.docker.compose.project.config_files=/data/compose/27/docker-compose.yml
+            - com.docker.compose.oneoff=False
+            - com.docker.compose.depends_on=
+            - com.docker.compose.container-number=1
+            - com.docker.compose.project=pwndrop
+            - com.docker.compose.service=pwndrop
+        image: 'lscr.io/linuxserver/pwndrop:latest'

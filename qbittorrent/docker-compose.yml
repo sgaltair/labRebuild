@@ -2,7 +2,7 @@ version: '3.3'
 services:
     linuxserver:
         container_name: qbittorrent
-        hostname: 2343afe7490b
+        hostname: qbittorrent
         environment:
             - PUID=1000
             - PGID=1000

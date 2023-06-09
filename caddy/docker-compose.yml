@@ -2,7 +2,7 @@ version: '3.3'
 services:
     run:
         container_name: caddy
-        hostname: 8cae787c92c5
+        hostname: caddy
         volumes:
             - '/site:/var/www/html'
             - /var/www/html
@@ -14,4 +14,4 @@ services:
             - '443:443/udp'
             - '80:80'
         restart: unless-stopped
-        image: run
+        image: rundocker.io/caddy:2.6.1
