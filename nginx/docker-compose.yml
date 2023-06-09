@@ -3,12 +3,11 @@ version: '3'
 services:
   app:
     image: 'nginx'
-    restart: unless-stpped
+    restart: unless-stopped
     ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
+      # - 80:80
+       - 81:81 # nginx admin portal
+      # - 443:443
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
-    
