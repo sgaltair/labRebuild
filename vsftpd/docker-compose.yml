@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+    usr:
+        container_name: vsftpd
+        hostname: 9afd7400498e
+        environment:
+            - FTP_PASS=LtGuhjGidFo3ceo7
+        volumes:
+            - '/site:/home/vsftpd'
+            - 'd50bda831e440a8e2147063c31abda12241772b6b1b26239c5b4f6603487b146:/var/log/vsftpd'
+        network_mode: bridge
+        privileged: true
+        ports:
+            - '20:20'
+            - '21:21'
+        restart: always
+        image: /usr/sbin/run-vsftpd.sh

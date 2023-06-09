@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+    src:
+        container_name: copybot
+        hostname: 5413a140dd9c
+        environment:
+            - NODE_VERSION=18.8.0
+        network_mode: bridge
+        restart: unless-stopped
+        labels:
+            - 'com.centurylinklabs.watchtower.enable="false"'
+        image: ./src/bot.js

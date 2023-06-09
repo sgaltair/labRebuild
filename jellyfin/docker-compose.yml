@@ -1,0 +1,26 @@
+version: '3.3'
+services:
+    linuxserver:
+        container_name: jellyfin
+        hostname: f8f20cd83278
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=America/New_York
+            - 'JELLYFIN_PublishedServerUrl=http://isame-lab.com'
+        volumes:
+            - '/volume1/docker/jellyfin/config:/config'
+            - '/volume1/docker/jellyfin/data/tvshows:/data/tvshows'
+            - '/volume1/docker/jellyfin/data/movies:/data/movies'
+            - '/volume1/docker/jellyfin/data/music:/data/music'
+            - /data/movies
+            - /data/music
+            - /data/tvshows
+        network_mode: bridge
+        ports:
+            - '1900:1900/udp'
+            - '7359:7359/udp'
+            - '8096:8096'
+            - '8920:8920'
+        restart: unless-stopped
+        image: 'docker.io/linuxserver/jellyfin:latest'

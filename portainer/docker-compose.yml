@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+    portainer-ee:
+        container_name: portainer
+        hostname: d1a9576148b6
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+            - 'portainer_data:/data'
+        ports:
+            - '8000:8000'
+            - '9000:9000'
+        expose:
+            - '9443'
+        restart: always
+        image: 'portainer/portainer-ee:latest'

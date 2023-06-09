@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+    run:
+        container_name: caddy
+        hostname: 8cae787c92c5
+        volumes:
+            - '/site:/var/www/html'
+            - /var/www/html
+        network_mode: bridge
+        expose:
+            - '2019'
+        ports:
+            - '443:443'
+            - '443:443/udp'
+            - '80:80'
+        restart: unless-stopped
+        image: run
