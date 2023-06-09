@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    restart: unless-stopped
+    ports:
+      - 6881:6881
+      - 8001:8001
+      
