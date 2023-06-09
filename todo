@@ -1,0 +1,14 @@
+Setup nginx
+
+Other containers:
+    work:
+        caddy
+        copybot
+        vsftpd
+    else:
+        filebrowser/filebrowser
+        containrrr/watchtower
+        portainer/portainer-ee
+        lscr.io/linuxserver/qbittorrent
+        lscr.io/linuxserver/pwndrop
+        docker.io/linuxserver/jellyfin
