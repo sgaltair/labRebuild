@@ -1,0 +1,42 @@
+version: '3.3'
+services:
+    caddy:
+        container_name: caddyTest
+        hostname: caddy
+        volumes:
+            - /site:/var/www/html
+            - ./Caddyfile:/etc/caddy/Caddyfile
+        network_mode: bridge
+        expose:
+            - '2019'
+        ports:
+            - '443:443'
+            - '443:443/udp'
+            - '80:80'
+        restart: unless-stopped
+        image: docker.io/caddy:2.6.1
+    vsftpd:
+        container_name: vsftpdTest
+        hostname: vsftpd
+        env_file:
+          - ftp_pass.env
+        volumes:
+            - '/site:/home/vsftpd'
+            - '/var/log/vsftpd'
+        network_mode: bridge
+        privileged: true
+        ports:
+            - '20:20'
+            - '21:21'
+        restart: unless-stopped
+        image: fauria/vsftpd
+    copybot:
+        container_name: copybotTest
+        hostname: copybot
+        environment:
+            - NODE_VERSION=18.8.0
+        network_mode: bridge
+        restart: unless-stopped
+        labels:
+            - 'com.centurylinklabs.watchtower.enable="false"'
+        image: docker.io/isame/copybot:development
