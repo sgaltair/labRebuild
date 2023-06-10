@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-    usr:
+    vsftpd:
         container_name: vsftpd
         hostname: vsftpd
         environment:

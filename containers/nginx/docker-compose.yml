@@ -6,9 +6,9 @@ services:
     restart: unless-stopped
     hostname: nginx
     ports:
-      - 80:80
+      # - 80:80
       - 81:81 # nginx admin portal
-      - 443:443
+      # - 443:443
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
