@@ -1,7 +1,7 @@
 version: '3.3'
 services:
     linuxserver:
-        container_name: jellyfin
+        container_name: jellyfinTest
         hostname: jellyfin
         environment:
             - PUID=1000
@@ -16,7 +16,8 @@ services:
             - /data/movies
             - /data/music
             - /data/tvshows
-        network_mode: bridge
+        networks:
+            - nginx_default
         ports:
             - '1900:1900/udp'
             - '7359:7359/udp'

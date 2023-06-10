@@ -1,15 +1,29 @@
-version: '3.3'
+version: "3.3"
 services:
-    portainer-ee:
-        container_name: portainer
-        hostname: portainer
-        volumes:
-            - '/var/run/docker.sock:/var/run/docker.sock'
-            - 'portainer_data:/data'
-        ports:
-            - '8000:8000'
-            - '9000:9000'
-        expose:
-            - '9443'
-        restart: unless-stopped
-        image: 'portainer/portainer-ee:latest'
+  portainer-ee:
+    command: -H unix:///var/run/docker.sock
+    container_name: portainer-ee
+    hostname: portainer
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "portainer_data:/data"
+    ports:
+      - "8000:8000"
+      # - "9000:9000"
+    # expose:
+    #   - "9443"
+    restart: unless-stopped
+    image: "portainer/portainer-ee:latest"
+    environment:
+      - VIRTUAL_HOST=portainer.isame-lab.com
+      - VIRTUAL_PORT=9000
+    networks:
+      - nginx_default
+
+networks:
+  nginx_default:
+    external: true
+volumes:
+  portainer_data:
+    external: true
+    name: portainer_data

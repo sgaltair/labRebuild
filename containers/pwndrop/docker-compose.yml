@@ -1,30 +1,27 @@
 version: '3.3'
 services:
     linuxserver:
-        container_name: pwndrop
+        container_name: pwndropTest
         hostname: pwndrop
         environment:
-            - SECRET_PATH=/pwndrop
+            - SECRET_PATH=/downloads
             - PUID=1000
             - PGID=1000
-            - TZ=Europe/London
+            - TZ=America/New_York
+            - VIRTUAL_HOST=pwndrop.isame-lab.com
+            - VIRTUAL_PORT=8060
         volumes:
-            - '/path/to/appdata:/config:rw'
+            - './data:/config:rw'
             - /config
-        network_mode: pwndrop_default
+        networks:
+            - nginx_default
         expose:
             - '4443'
+            - '8060'
         ports:
             - '8060:8080'
         restart: unless-stopped
-        labels:
-            - com.docker.compose.config-hash=3ffd7f0ca7e17c17416103d02f971d7e305b7efce474e42a7e9a05ec491807be
-            - com.docker.compose.version=2.5.1
-            - com.docker.compose.project.working_dir=/data/compose/27
-            - com.docker.compose.project.config_files=/data/compose/27/docker-compose.yml
-            - com.docker.compose.oneoff=False
-            - com.docker.compose.depends_on=
-            - com.docker.compose.container-number=1
-            - com.docker.compose.project=pwndrop
-            - com.docker.compose.service=pwndrop
         image: 'lscr.io/linuxserver/pwndrop:latest'
+networks:
+  nginx_default:
+    external: true

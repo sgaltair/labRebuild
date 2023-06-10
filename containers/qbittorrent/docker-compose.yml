@@ -1,7 +1,7 @@
 version: '3.3'
 services:
     linuxserver:
-        container_name: qbittorrent
+        container_name: qbittorrentTest
         hostname: qbittorrent
         environment:
             - PUID=1000
@@ -12,7 +12,8 @@ services:
             - '/home/isame/qbit_config:/config:rw'
             - '/kasm_shared:/downloads:rw'
             - /downloads
-        network_mode: qbittorrent_default
+        networks:
+            - nginx_default
         ports:
             - '6881:6881'
             - '6881:6881/udp'
@@ -20,14 +21,4 @@ services:
         expose:
             - '8080'
         restart: unless-stopped
-        labels:
-            - com.docker.compose.config-hash=9852a0dfb19b67ca100b30ca5dd46f09977140331667bee7546d06c9e80f143d
-            - com.docker.compose.project.config_files=/data/compose/28/docker-compose.yml
-            - com.docker.compose.depends_on=
-            - com.docker.compose.oneoff=False
-            - com.docker.compose.project=qbittorrent
-            - com.docker.compose.service=qbittorrent
-            - com.docker.compose.version=2.5.1
-            - com.docker.compose.project.working_dir=/data/compose/28
-            - com.docker.compose.container-number=1
         image: 'lscr.io/linuxserver/qbittorrent:latest'

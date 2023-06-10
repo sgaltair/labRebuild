@@ -1,14 +1,12 @@
 version: '3.3'
-
 services:
-  app:
-    image: nginx
-    restart: unless-stopped
-    hostname: nginx
-    ports:
-      # - 80:80
-      - 81:81 # nginx admin portal
-      # - 443:443
-    volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
+    nginx-proxy:
+      container_name: nginx
+      ports:
+          - '80:80'
+      volumes:
+          - '/var/run/docker.sock:/tmp/docker.sock:ro'
+          - './vhost.d:/etc/nginx/vhost.d:ro'
+          # - './nginx.conf:/etc/nginx/nginx.conf'
+          # - './conf:/etc/nginx'
+      image: nginxproxy/nginx-proxy

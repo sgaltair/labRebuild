@@ -1,26 +1,27 @@
 version: '3.3'
 services:
     filebrowser:
-        container_name: filebrowser
+        container_name: filebrowserTest
         hostname: filebrowser
         user: '1000:1000'
         volumes:
             - '/:/srv:rw'
             - '/home/isame/filebrowser/filebrowser.db:/database.db:rw'
             - /database.db
-        network_mode: filebrowser_default
+        # network_mode: filebrowser_default
+        networks:
+            - nginx_default
         ports:
             - '8070:80'
+        expose: 
+            - '8070'
+        
         restart: unless-stopped
-        labels:
-            - com.docker.compose.config-hash=2d7d51225f6f94d352ce94b34c943440b32b1459915c4935d62dc98e420e52d7
-            - com.docker.compose.oneoff=False
-            - com.docker.compose.project.working_dir=/data/compose/21
-            - com.docker.compose.service=filebrowser
-            - com.docker.compose.depends_on=
-            - com.docker.compose.container-number=1
-            - com.docker.compose.version=2.5.1
-            - 'com.docker.compose.image=sha256:6d86360308fdcc35e06984a791b482e40cea7b8fd72de312eee6f3dfa445ef6a'
-            - com.docker.compose.project.config_files=/data/compose/21/docker-compose.yml
-            - com.docker.compose.project=filebrowser
         image: 'filebrowser/filebrowser:latest'
+        environment:
+            - VIRTUAL_HOST=filebrowser.isame-lab.com
+            - VIRTUAL_PORT=8070
+
+networks:
+  nginx_default:
+    external: true
