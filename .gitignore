@@ -1,1 +1,2 @@
 *.env
+containers/nginx/data/files
