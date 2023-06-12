@@ -10,13 +10,14 @@ services:
     ports:
       - "8000:8000"
       # - "9000:9000"
-    # expose:
-    #   - "9443"
+    expose:
+      - "9443"
     restart: unless-stopped
     image: "portainer/portainer-ee:latest"
     environment:
       - VIRTUAL_HOST=portainer.isame-lab.com
       - VIRTUAL_PORT=9000
+      - LETSENCRYPT_HOST=portainer.isame-lab.com
     networks:
       - nginx_default
 
