@@ -1,27 +1,24 @@
-version: '3.3'
+version: "3.3"
 services:
-    linuxserver:
-        container_name: jellyfinTest
-        hostname: jellyfin
-        environment:
-            - PUID=1000
-            - PGID=1000
-            - TZ=America/New_York
-            - 'JELLYFIN_PublishedServerUrl=http://isame-lab.com'
-        volumes:
-            - '/volume1/docker/jellyfin/config:/config'
-            - '/volume1/docker/jellyfin/data/tvshows:/data/tvshows'
-            - '/volume1/docker/jellyfin/data/movies:/data/movies'
-            - '/volume1/docker/jellyfin/data/music:/data/music'
-            - /data/movies
-            - /data/music
-            - /data/tvshows
-        networks:
-            - nginx_default
-        ports:
-            - '1900:1900/udp'
-            - '7359:7359/udp'
-            - '8096:8096'
-            - '8920:8920'
-        restart: unless-stopped
-        image: 'docker.io/linuxserver/jellyfin:latest'
+  linuxserver:
+    container_name: jellyfin
+    hostname: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      - VIRTUAL_HOST=jellyfin.isame-lab.com
+      - VIRTUAL_PORT=8096
+      - LETSENCRYPT_HOST=jellyfin.isame-lab.com
+    volumes:
+      - "/volume1/docker/jellyfin/config:/config"
+      - "/volume1/docker/jellyfin/data/tvshows:/data/tvshows"
+      - "/volume1/docker/jellyfin/data/movies:/data/movies"
+      - "/volume1/docker/jellyfin/data/music:/data/music"
+    networks:
+      - nginx_default
+    restart: unless-stopped
+    image: "docker.io/linuxserver/jellyfin:latest"
+networks:
+  nginx_default:
+    external: true

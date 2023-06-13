@@ -1,24 +1,24 @@
-version: '3.3'
+version: "3.3"
 services:
-    linuxserver:
-        container_name: qbittorrentTest
-        hostname: qbittorrent
-        environment:
-            - PUID=1000
-            - PGID=1000
-            - TZ=America/New_York
-            - WEBUI_PORT=8001
-        volumes:
-            - '/home/isame/qbit_config:/config:rw'
-            - '/kasm_shared:/downloads:rw'
-            - /downloads
-        networks:
-            - nginx_default
-        ports:
-            - '6881:6881'
-            - '6881:6881/udp'
-            - '8001:8001'
-        expose:
-            - '8080'
-        restart: unless-stopped
-        image: 'lscr.io/linuxserver/qbittorrent:latest'
+  linuxserver:
+    container_name: qbittorrent
+    hostname: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      - WEBUI_PORT=8001
+      - VIRTUAL_HOST=qbit.isame-lab.com
+      - VIRTUAL_PORT=8001
+      - LETSENCRYPT_HOST=qbit.isame-lab.com
+    volumes:
+      - "/home/isame/qbit_config:/config:rw"
+      - "/kasm_shared:/downloads:rw"
+      - "/downloads"
+    networks:
+      - nginx_default
+    restart: unless-stopped
+    image: "lscr.io/linuxserver/qbittorrent:latest"
+networks:
+  nginx_default:
+    external: true

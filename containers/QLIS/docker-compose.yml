@@ -1,44 +1,39 @@
-version: '3.3'
+version: "3.3"
 services:
-    caddy:
-        container_name: caddyTest
-        hostname: caddy
-        volumes:
-            - /site:/var/www/html
-            - ./Caddyfile:/etc/caddy/Caddyfile
-        expose:
-            - '2019'
-        ports:
-            - '443:443'
-            - '443:443/udp'
-            - '80:80'
-        restart: unless-stopped
-        image: docker.io/caddy:2.6.1
-    vsftpd:
-        container_name: vsftpdTest
-        hostname: vsftpd
-        env_file:
-          - ftp_pass.env
-        volumes:
-            - '/site:/home/vsftpd'
-            - '/var/log/vsftpd'
-        privileged: true
-        ports:
-            - '20:20'
-            - '21:21'
-        restart: unless-stopped
-        image: fauria/vsftpd
-    copybot:
-        container_name: copybotTest
-        hostname: copybot
-        environment:
-            - NODE_VERSION=18.8.0
-        restart: unless-stopped
-        labels:
-            - 'com.centurylinklabs.watchtower.enable="false"'
-        image: docker.io/isame/copybot:development
-
+  nginx:
+    container_name: nginx-web
+    hostname: nginx-web
+    image: nginx
+    volumes:
+      - /site:/usr/share/nginx/html/
+    environment:
+      - VIRTUAL_HOST=isame-lab.com
+      - LETSENCRYPT_HOST=isame-lab.com
+      - NGINX_HOST=isame-lab.com
+  vsftpd:
+    container_name: vsftpdTest
+    hostname: vsftpd
+    env_file:
+      - ftp_pass.env
+    volumes:
+      - "/site:/home/vsftpd"
+      - "/var/log/vsftpd"
+    privileged: true
+    ports:
+      - "20:20"
+      - "21:21"
+    restart: unless-stopped
+    image: fauria/vsftpd
+  copybot:
+    container_name: copybotTest
+    hostname: copybot
+    environment:
+      - NODE_VERSION=18.8.0
+    restart: unless-stopped
+    labels:
+      - 'com.centurylinklabs.watchtower.enable="false"'
+    image: docker.io/isame/copybot:development
 networks:
-    default:
-        external: true
-        name: nginx_default 
+  default:
+    external: true
+    name: nginx_default
