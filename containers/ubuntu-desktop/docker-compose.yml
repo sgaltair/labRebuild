@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  desktop:
+    container_name: ubuntu-desktop
+    hostname: ubuntu-desktop
+    environment:
+      - VIRTUAL_HOST=desktop.isame-lab.com
+      - LETSENCRYPT_HOST=desktop.isame-lab.com
+    env_file:
+      - desktop.env
+    volumes:
+      - "/dev/shm:/dev/shm"
+    networks:
+      - nginx_default
+    restart: unless-stopped
+    image: "dorowu/ubuntu-desktop-lxde-vnc"
+networks:
+  nginx_default:
+    external: true
