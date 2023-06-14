@@ -17,7 +17,7 @@ services:
       - ftp_pass.env
     volumes:
       - "/site:/home/vsftpd"
-      - "/var/log/vsftpd"
+      - "./logs/vsftpd:/var/log/vsftpd"
     privileged: true
     ports:
       - "20:20"

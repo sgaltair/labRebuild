@@ -14,7 +14,7 @@ services:
     volumes:
       - "/home/isame/qbit_config:/config:rw"
       - "/kasm_shared:/downloads:rw"
-      - "/downloads"
+      # - "/downloads"
     networks:
       - nginx_default
     restart: unless-stopped
