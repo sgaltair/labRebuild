@@ -11,7 +11,7 @@ services:
       - LETSENCRYPT_HOST=isame-lab.com
       - NGINX_HOST=isame-lab.com
   vsftpd:
-    container_name: vsftpdTest
+    container_name: vsftpd
     hostname: vsftpd
     env_file:
       - ftp_pass.env
@@ -25,7 +25,7 @@ services:
     restart: unless-stopped
     image: fauria/vsftpd
   copybot:
-    container_name: copybotTest
+    container_name: copybot
     hostname: copybot
     environment:
       - NODE_VERSION=18.8.0
