@@ -1,0 +1,4 @@
+(
+    update_shutdown_grace_period_secs: 120,
+    update_shutdown_message: "The server is restarting for an update",
+)
