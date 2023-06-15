@@ -1,1 +1,0 @@
-docker run --name=watchy --hostname=0d92d3dc95d4 --mac-address=02:42:ac:11:00:04 --volume=/var/run/docker.sock:/var/run/docker.sock --workdir=/ --expose=8080 --restart=always --runtime=runc containrrr/watchtower:latest --cleanup --schedule '0 30 4 * * *' -d 

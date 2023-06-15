@@ -1,1 +1,0 @@
-docker run --name=portainer --hostname=d1a9576148b6 --mac-address=02:42:ac:11:00:06 --volume=/var/run/docker.sock:/var/run/docker.sock --volume=portainer_data:/data --workdir=/ -p 8000:8000 -p 9000:9000 --expose=9443 --restart=always --runtime=runc --detach=true portainer/portainer-ee:latest 
