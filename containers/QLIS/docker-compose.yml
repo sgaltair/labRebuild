@@ -22,7 +22,7 @@ services:
     ports:
       - "20:20"
       - "21:21"
-    restart: unless-stopped
+    # restart: unless-stopped
     image: fauria/vsftpd
   copybot:
     container_name: copybot
