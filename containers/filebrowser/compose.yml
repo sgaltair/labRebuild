@@ -1,13 +1,13 @@
-version: "3.3"
 services:
   filebrowser:
     container_name: filebrowser
     hostname: filebrowser
-    image: "hurlenko/filebrowser"
+    image: hurlenko/filebrowser:latest
     user: 1000:1000
     volumes:
-      - "/:/data"
-      - "~/filebrowser:/config"
+      - /:/data
+      - ./config:/config
+      - ./branding:/branding
     networks:
       - nginx_default
     restart: unless-stopped

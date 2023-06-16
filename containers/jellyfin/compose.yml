@@ -1,6 +1,5 @@
-version: "3.3"
 services:
-  linuxserver:
+  jellyfin:
     container_name: jellyfin
     hostname: jellyfin
     environment:
@@ -11,14 +10,14 @@ services:
       - VIRTUAL_PORT=8096
       - LETSENCRYPT_HOST=jellyfin.isame-lab.com
     volumes:
-      - "/volume1/docker/jellyfin/config:/config"
-      - "/volume1/docker/jellyfin/data/tvshows:/data/tvshows"
-      - "/volume1/docker/jellyfin/data/movies:/data/movies"
-      - "/volume1/docker/jellyfin/data/music:/data/music"
+      - /volume1/docker/jellyfin/config:/config
+      - /volume1/docker/jellyfin/data/tvshows:/data/tvshows
+      - /volume1/docker/jellyfin/data/movies:/data/movies
+      - /volume1/docker/jellyfin/data/music:/data/music
     networks:
       - nginx_default
     restart: unless-stopped
-    image: "docker.io/linuxserver/jellyfin:latest"
+    image: docker.io/linuxserver/jellyfin:latest
 networks:
   nginx_default:
     external: true

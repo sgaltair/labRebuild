@@ -1,5 +1,3 @@
-version: "3.5"
-
 services:
   veloren-server:
     image: registry.gitlab.com/veloren/veloren/server-cli:weekly
@@ -8,11 +6,10 @@ services:
     container_name: veloren-server
     restart: on-failure:0
     volumes:
-        - "./userdata:/opt/userdata"
+        - ./userdata:/opt/userdata
     environment:
         - RUST_LOG=debug,common::net=info
         - VIRTUAL_HOST=veloren.isame-lab.com
-        # - LETSENCRYPT_HOST=veloren.isasme-lab.com
         - VIRTUAL_PORT=14004
     ports:
       - 14004:14004

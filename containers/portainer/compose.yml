@@ -1,21 +1,19 @@
-version: "3.3"
 services:
   portainer-ee:
-    command: -H unix:///var/run/docker.sock
     container_name: portainer-ee
     hostname: portainer
+    command: -H unix:///var/run/docker.sock
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "portainer_data:/data"
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
     restart: unless-stopped
-    image: "portainer/portainer-ee:latest"
+    image: portainer/portainer-ee:latest
     environment:
       - VIRTUAL_HOST=portainer.isame-lab.com
       - VIRTUAL_PORT=9000
       - LETSENCRYPT_HOST=portainer.isame-lab.com
     networks:
       - nginx_default
-
 networks:
   nginx_default:
     external: true

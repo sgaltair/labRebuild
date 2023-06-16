@@ -1,6 +1,5 @@
-version: "3.3"
 services:
-  linuxserver:
+  qbittorrent:
     container_name: qbittorrent
     hostname: qbittorrent
     environment:
@@ -12,13 +11,12 @@ services:
       - VIRTUAL_PORT=8001
       - LETSENCRYPT_HOST=qbit.isame-lab.com
     volumes:
-      - "/home/isame/qbit_config:/config:rw"
-      - "/kasm_shared:/downloads:rw"
-      # - "/downloads"
+      - /home/isame/qbit_config:/config:rw
+      - /kasm_shared:/downloads:rw
     networks:
       - nginx_default
     restart: unless-stopped
-    image: "lscr.io/linuxserver/qbittorrent:latest"
+    image: lscr.io/linuxserver/qbittorrent:latest
 networks:
   nginx_default:
     external: true

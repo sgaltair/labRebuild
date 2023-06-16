@@ -1,6 +1,5 @@
-version: "3.3"
 services:
-  desktop:
+  ubuntu-desktop:
     container_name: ubuntu-desktop
     hostname: ubuntu-desktop
     environment:
@@ -9,11 +8,11 @@ services:
     env_file:
       - desktop.env
     volumes:
-      - "/dev/shm:/dev/shm"
+      - /dev/shm:/dev/shm
     networks:
       - nginx_default
     restart: unless-stopped
-    image: "dorowu/ubuntu-desktop-lxde-vnc"
+    image: dorowu/ubuntu-desktop-lxde-vnc
 networks:
   nginx_default:
     external: true

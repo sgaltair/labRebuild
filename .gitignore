@@ -1,3 +1,4 @@
 *.env
+*.db
 containers/veloren/userdata/server/rtsim
 containers/veloren/userdata/server/saves
