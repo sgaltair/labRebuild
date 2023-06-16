@@ -21,3 +21,4 @@ networks:
     external: true
 volumes:
   pwndrop_data:
+    external: true
