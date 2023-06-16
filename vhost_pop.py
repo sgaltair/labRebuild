@@ -27,7 +27,7 @@ def writeLog(logType: str, exception: Exception, object: str):
                     f.writelines(f'[{logType}] {timestamp()} Could not add {object}.\n{timestamp()}     Error: {exception}.\n')
         except Exception as e:
             return e
-    if logType == 'info':
+    elif logType == 'info':
         try:
             with open(logFile, 'r+') as f:
                 lines = f.readlines()
@@ -41,22 +41,27 @@ def writeLog(logType: str, exception: Exception, object: str):
                     f.writelines(f'[{logType}] {timestamp()} Added {object}.\n')
         except Exception as e:
             return e
+    else: 
+        raise Exception('Invalid log type.')
 
 def main():
-    for file in files:
-        with open(file.as_posix()) as f:
-            currentFile = f.read()
+    try:
+        for file in files:
+            with open(file.as_posix()) as f:
+                currentFile = f.read()
 
-        rgx = re.search('(?<=VIRTUAL_HOST=).+', currentFile)
-        if rgx:
-            if (not Path(f'containers/nginx/vhost.d/{rgx[0]}').is_file()) and (rgx[0] != 'DEFAULT_HOST'):
-                print(rgx[0])
-                try:
-                    shutil.copy('containers/nginx/vhost.d/isame-lab.com', f'containers/nginx/vhost.d/{rgx[0]}')
-                except Exception as e:
-                    writeLog('error', e, rgx[0])
-                else:
-                    writeLog('info', '', object=rgx[0])
+            rgx = re.search('(?<=VIRTUAL_HOST=).+', currentFile)
+            if rgx:
+                if (not Path(f'containers/nginx/vhost.d/{rgx[0]}').is_file()) and (rgx[0] != 'DEFAULT_HOST'):
+                    print(rgx[0])
+                    try:
+                        shutil.copy('containers/nginx/vhost.d/isame-lab.com', f'containers/nginx/vhost.d/{rgx[0]}')
+                    except Exception as e:
+                        writeLog('error', e, rgx[0])
+                    else:
+                        writeLog('info', '', object=rgx[0])
+    except Exception as e:
+        return e
 
 if __name__ == '__main__':
     main()
