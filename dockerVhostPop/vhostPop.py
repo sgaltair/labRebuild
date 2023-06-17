@@ -47,54 +47,29 @@ def timestamp():
     return dt.now().strftime(TIMESTAMP_FORMAT)
 
 
-def writeLog(logType: str, exception: Exception, object: str):
-    # Takes a log type, and writes to the file depending on the type.
-    # Also ensures the log file never exceeds 1000 lines.
-    if logType == "error":
-        try:
-            with open(LOG_FILE_PATH, "r+") as f:
-                lines = f.readlines()
-                if len(lines) > 1000:
-                    lines.pop(0)
-                    lines.append(
-                        f"[{logType}] {timestamp()} Could not add {object}.\n        Error: {exception}.\n"
-                    )
-                    f.seek(0)
-                    f.truncate()
-                    f.writelines(lines)
-                else:
-                    f.writelines(
-                        f"[{logType}] {timestamp()} Could not add {object}.\n        Error: {exception}.\n"
-                    )
-        except Exception as e:
-            raise e
-    elif logType == "info":
-        try:
-            with open(LOG_FILE_PATH, "r+") as f:
-                lines = f.readlines()
-                if len(lines) > 1000:
-                    lines.pop(0)
-                    lines.append(f"[{logType}]  {timestamp()} Added vhost {object}.\n")
-                    f.seek(0)
-                    f.truncate()
-                    f.writelines(lines)
-                else:
-                    f.writelines(f"[{logType}]  {timestamp()} Added vhost {object}.\n")
-        except Exception as e:
-            raise e
-    else:
-        raise Exception("Invalid log type.")
+def writeLog(logType: str, logText: str):
+    try:
+        with open(LOG_FILE_PATH, "r+") as f:
+            lines = f.readlines()
+            if len(lines) > 1000:
+                lines.pop(0)
+                lines.append(f"[{logType}] {timestamp()} {logText}\n")
+                f.seek(0)
+                f.truncate()
+                f.writelines(lines)
+            else:
+                f.writelines(f"[{logType}] {timestamp()} {logText}\n")
+    except Exception as e:
+        raise e
 
 
 def main():
     # Writing default initial host file if it doesn't exist.
     try:
         if not os.path.exists(f"../{VHOSTD_PATH}/{DEFAULT_HOST}"):
-            try:
-                with open(f"../{VHOSTD_PATH}/{DEFAULT_HOST}", "w") as f:
-                    f.write(DEFAULT_VHOST_TEXT)
-            except:
-                return Exception(f"Unable to write initial vhost file.\n{e}")
+            with open(f"../{VHOSTD_PATH}/{DEFAULT_HOST}", "w") as f:
+                f.write(DEFAULT_VHOST_TEXT)
+
     except Exception as e:
         return Exception(f"Unable to locate or create initial vhost file.\n{e}")
     # Checks for VIRTUAL_HOST environment variable in all found compose files.
@@ -116,46 +91,19 @@ def main():
                             f"../{VHOSTD_PATH}/{rgx[0]}",
                         )
                     except Exception as e:
-                        writeLog("error", e, rgx[0])
+                        writeLog("error", f"{e.args[0]}")
                     else:
-                        writeLog("info", "", object=rgx[0])
+                        writeLog("info", f"{rgx[0]} created.")
                     if LINODE_INTEGRATION:
                         if not createRecord(rgx[0].split(".")[0], "A"):
-                            try:
-                                with open(LOG_FILE_PATH, "r+") as f:
-                                    lines = f.readlines()
-                                    if len(lines) > 1000:
-                                        lines.pop(0)
-                                        lines.append(
-                                            f"[error] {timestamp()} Vhost {rgx[0]} created, but Linode record creation failed.\n"
-                                        )
-                                        f.seek(0)
-                                        f.truncate()
-                                        f.writelines(lines)
-                                    else:
-                                        f.writelines(
-                                            f"[error] {timestamp()} Vhost {rgx[0]} created, but Linode record creation failed.\n"
-                                        )
-                            except Exception as e:
-                                raise e
+                            writeLog(
+                                "error",
+                                f"Vhost {rgx[0]} created, but Linode record creation failed.",
+                            )
                         else:
-                            try:
-                                with open(LOG_FILE_PATH, "r+") as f:
-                                    lines = f.readlines()
-                                    if len(lines) > 1000:
-                                        lines.pop(0)
-                                        lines.append(
-                                            f"[info]  {timestamp()} Successfully created {rgx[0]} domain record.\n"
-                                        )
-                                        f.seek(0)
-                                        f.truncate()
-                                        f.writelines(lines)
-                                    else:
-                                        f.writelines(
-                                            f"[info]  {timestamp()} Successfully created {rgx[0]} domain record.\n"
-                                        )
-                            except Exception as e:
-                                raise e
+                            writeLog(
+                                "info", f"Successfully created {rgx[0]} domain record."
+                            )
 
     except Exception as e:
         raise e
