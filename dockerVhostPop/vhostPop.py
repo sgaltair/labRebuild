@@ -128,6 +128,20 @@ def main():
                                         f.writelines(f'[info]  {timestamp()} Successfully created {rgx[0]} domain record.\n')
                             except Exception as e:
                                 raise e
+                else:
+                    try:
+                        with open(LOG_FILE_PATH, 'r+') as f:
+                            lines = f.readlines()
+                            if len(lines) > 1000:
+                                lines.pop(0)
+                                lines.append(f'[info]  {timestamp()} Run complete - No new hosts found.\n')
+                                f.seek(0)
+                                f.truncate()
+                                f.writelines(lines)
+                            else:
+                                f.writelines(f'[info]  {timestamp()} Run complete - No new hosts found.\n')
+                    except Exception as e:
+                        raise e
                             
     except Exception as e:
         raise e
