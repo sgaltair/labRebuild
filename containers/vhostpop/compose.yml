@@ -1,6 +1,6 @@
 services:
   vhostPop:
-    container_name: vhostPop
+    container_name: vhostpop
     hostname: vhostPop
     image: isame/vhostpop:latest
     volumes:
