@@ -1,5 +1,5 @@
-vhostPop/vhostPopConfig.py
-vhostPop/*.log
+**/vhostPopConfig.py
+**/.log
 *Env.py
 *.env
 *.db
