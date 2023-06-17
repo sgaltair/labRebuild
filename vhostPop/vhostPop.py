@@ -62,12 +62,12 @@ def writeLog(logType: str, exception: Exception, object: str):
                 lines = f.readlines()
                 if len(lines) > 1000:
                     lines.pop(0)
-                    lines.append(f'[{logType}] {timestamp()} Added {object}.\n')
+                    lines.append(f'[{logType}]  {timestamp()} Added vhost {object}.\n')
                     f.seek(0)
                     f.truncate()
                     f.writelines(lines)
                 else:
-                    f.writelines(f'[{logType}] {timestamp()} Added {object}.\n')
+                    f.writelines(f'[{logType}]  {timestamp()} Added vhost {object}.\n')
         except Exception as e:
             raise e
     else: 
@@ -100,7 +100,20 @@ def main():
                     else:
                         writeLog('info', '', object=rgx[0])
                     if LINODE_INTEGRATION:
-                        if not createRecord(rgx[0], 'A'):
+                        if not createRecord(rgx[0].split('.')[0], 'A'):
+                            try:
+                                with open(LOG_FILE_PATH, 'r+') as f:
+                                    lines = f.readlines()
+                                    if len(lines) > 1000:
+                                        lines.pop(0)
+                                        lines.append(f'[error] {timestamp()} Vhost {rgx[0]} created, but Linode record creation failed.\n')
+                                        f.seek(0)
+                                        f.truncate()
+                                        f.writelines(lines)
+                                    else:
+                                        f.writelines(f'[error] {timestamp()} Vhost {rgx[0]} created, but Linode record creation failed.\n')
+                            except Exception as e:
+                                raise e
                             raise Exception('Vhost created, but Linode record creation failed.')
                         else:
                             try:
@@ -108,12 +121,12 @@ def main():
                                     lines = f.readlines()
                                     if len(lines) > 1000:
                                         lines.pop(0)
-                                        lines.append(f'Successfully created {rgx[0]} domain record.\n')
+                                        lines.append(f'[info]  {timestamp()} Successfully created {rgx[0]} domain record.\n')
                                         f.seek(0)
                                         f.truncate()
                                         f.writelines(lines)
                                     else:
-                                        f.writelines(f'Successfully created {rgx[0]} domain record.')
+                                        f.writelines(f'[info]  {timestamp()} Successfully created {rgx[0]} domain record.\n')
                             except Exception as e:
                                 raise e
                             
