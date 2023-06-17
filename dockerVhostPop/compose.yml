@@ -1,0 +1,9 @@
+services:
+  vhostPop:
+    container_name: vhostPop
+    hostname: vhostPop
+    image: isame/vhostpop
+    volumes:
+      - /home/isame/labRebuild/containers:/app/containers
+      - /home/isame/labRebuild/containers/nginx/vhost.d:/app/containers/nginx/vhost.d
+      - /home/isame/labRebuild/dockerVhostPop/vhostPopConfig.py:/app/vhostPop/vhostPopConfig.py
