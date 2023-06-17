@@ -7,7 +7,8 @@ import os
 from vhostPopConfig import *
 from linodeRecordCreate import *
 
-# Checks target directory recursively for compose files with a VIRTUAL_HOST environment variable and creates the corresponding vhost file in the target vhost directory.
+# Checks target directory recursively for compose files with a VIRTUAL_HOST environment variable and creates
+# the corresponding vhost file in the target vhost directory.
 # Written to be run alongside nginxproxy/nginx-proxy from https://hub.docker.com/r/nginxproxy/nginx-proxy.
 # I run it as a cron job to automate new host creation while
 
@@ -96,7 +97,9 @@ def main():
                 return Exception(f"Unable to write initial vhost file.\n{e}")
     except Exception as e:
         return Exception(f"Unable to locate or create initial vhost file.\n{e}")
-    # Checks for VIRTUAL_HOST environment variable in all found compose files. If one is present, checks if the corresponding vhost file exists. If not, creates it using the default.
+    # Checks for VIRTUAL_HOST environment variable in all found compose files.
+    # If one is present, checks if the corresponding vhost file exists.
+    # If not, creates it using the default.
     try:
         for file in files:
             with open(file.as_posix()) as f:
