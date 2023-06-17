@@ -7,3 +7,8 @@ services:
       - /home/isame/labRebuild/containers:/app/containers
       - /home/isame/labRebuild/containers/nginx/vhost.d:/app/containers/nginx/vhost.d
       - /home/isame/labRebuild/containers/vhostpop/vhostPopConfig.py:/app/vhostPop/vhostPopConfig.py
+    networks:
+      - nginx_default
+networks:
+  nginx_default:
+    external: true
