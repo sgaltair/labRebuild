@@ -74,20 +74,6 @@ def writeLog(logType: str, exception: Exception, object: str):
         raise Exception('Invalid log type.')
 
 def main():
-    # Logging to file that we ran.
-    try:
-            with open(LOG_FILE_PATH, 'r+') as f:
-                lines = f.readlines()
-                if len(lines) > 1000:
-                    lines.pop(0)
-                    lines.append(f'[info]  {timestamp()} Run complete - no new vhosts to add.\n')
-                    f.seek(0)
-                    f.truncate()
-                    f.writelines(lines)
-                else:
-                    f.writelines(f'[info]  {timestamp()} Run complete - no new vhosts to add.\n')
-    except Exception as e:
-        raise e
     # Writing default initial host file if it doesn't exist. 
     try:
         if not os.path.exists(f'../{VHOSTD_PATH}/{DEFAULT_HOST}'):
@@ -128,7 +114,6 @@ def main():
                                         f.writelines(f'[error] {timestamp()} Vhost {rgx[0]} created, but Linode record creation failed.\n')
                             except Exception as e:
                                 raise e
-                            raise Exception('Vhost created, but Linode record creation failed.')
                         else:
                             try:
                                 with open(LOG_FILE_PATH, 'r+') as f:
