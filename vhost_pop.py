@@ -56,7 +56,7 @@ def writeLog(logType: str, exception: Exception, object: str):
                 else:
                     f.writelines(f'[{logType}] {timestamp()} Could not add {object}.\n        Error: {exception}.\n')
         except Exception as e:
-            return e
+            raise e
     elif logType == 'info':
         try:
             with open(logFile, 'r+') as f:
@@ -70,7 +70,7 @@ def writeLog(logType: str, exception: Exception, object: str):
                 else:
                     f.writelines(f'[{logType}] {timestamp()} Added {object}.\n')
         except Exception as e:
-            return e
+            raise e
     else: 
         raise Exception('Invalid log type.')
 
@@ -101,7 +101,7 @@ def main():
                     else:
                         writeLog('info', '', object=rgx[0])
     except Exception as e:
-        return e
+        raise e
 
 if __name__ == '__main__':
     main()
