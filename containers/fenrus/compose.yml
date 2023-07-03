@@ -1,0 +1,20 @@
+services:
+  fenrus:
+    image: revenz/fenrus
+    container_name: fenrus
+    hostname: fenrus
+    environment:
+      - TZ=America/New_York
+      - VIRTUAL_HOST=home.isame-lab.com
+      - LETSENCRYPT_HOST=home.isame-lab.com
+      - VIRTUAL_PORT=3000
+    volumes:
+      - ./data:/app/data
+    # ports:
+    #   - 3000:3000
+    restart: unless-stopped
+    networks:
+      - nginx_default
+networks:
+  nginx_default:
+    external: true

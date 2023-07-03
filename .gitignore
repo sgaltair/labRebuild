@@ -6,6 +6,7 @@
 *.db
 containers/veloren/userdata/server/rtsim
 containers/veloren/userdata/server/saves
+containers/fenrus/data
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
