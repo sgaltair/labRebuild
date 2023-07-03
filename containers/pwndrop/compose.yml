@@ -8,17 +8,19 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/New_York
+      - VIRTUAL_PORT=8080
       - VIRTUAL_HOST=pwndrop.isame-lab.com
       - LETSENCRYPT_HOST=pwndrop.isame-lab.com
-      - VIRTUAL_PORT=8080
-    volumes:
-      - pwndrop_data:/config
     networks:
       - nginx_default
+    volumes:
+      - pwndrop_data:/config
+    # ports:
+    #   - 6969:8080
     restart: unless-stopped
-networks:
-  nginx_default:
-    external: true
 volumes:
   pwndrop_data:
+    external: true
+networks:
+  nginx_default:
     external: true
