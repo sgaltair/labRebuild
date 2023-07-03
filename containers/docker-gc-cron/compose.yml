@@ -11,7 +11,7 @@ services:
       - ./docker-gc-exclude:/etc/docker-gc-exclude
     environment:
       # By default, docker-gc is run every night at midnight. Change this variable to override.
-      - CRON=* * * * *
+      # - CRON=* * * * *
 
       # By default, docker will not remove an image if it is tagged in multiple repositories. If
       # you have a server running docker where this is the case, for example in CI environments
