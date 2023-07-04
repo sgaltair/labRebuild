@@ -7,7 +7,6 @@
 containers/veloren/userdata/server/rtsim
 containers/veloren/userdata/server/saves
 containers/fenrus/data
-containers/ssh-server/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
