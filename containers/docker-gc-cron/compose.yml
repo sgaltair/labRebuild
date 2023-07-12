@@ -1,11 +1,9 @@
-version: "3"
-
 services:
   gc:
     image: clockworksoul/docker-gc-cron:latest
     container_name: docker-gc
     network_mode: "none"
-    restart: always
+    restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker-gc-exclude:/etc/docker-gc-exclude
