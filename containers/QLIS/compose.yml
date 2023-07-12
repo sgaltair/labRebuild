@@ -9,6 +9,7 @@ services:
       - VIRTUAL_HOST=isame-lab.com
       - LETSENCRYPT_HOST=isame-lab.com
       - NGINX_HOST=isame-lab.com
+    restart: unless-stopped
   vsftpd:
     container_name: vsftpd
     hostname: vsftpd

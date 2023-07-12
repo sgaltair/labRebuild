@@ -9,6 +9,7 @@ services:
       - /home/isame/labRebuild/containers/vhostpop/vhostPopConfig.py:/app/vhostPop/vhostPopConfig.py
     networks:
       - nginx_default
+    restart: unless-stopped
 networks:
   nginx_default:
     external: true
