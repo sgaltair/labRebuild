@@ -7,6 +7,8 @@
 containers/veloren/userdata/server/rtsim
 containers/veloren/userdata/server/saves
 containers/fenrus/data
+containers/jellyfin/config
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

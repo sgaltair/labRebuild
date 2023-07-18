@@ -16,6 +16,7 @@ services:
       - LETSENCRYPT_HOST=filebrowser.isame-lab.com
       - VIRTUAL_PORT=8080
       - TZ=America/New_York
+
 networks:
   nginx_default:
     external: true

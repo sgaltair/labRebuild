@@ -15,12 +15,11 @@ services:
       - nginx_default
     volumes:
       - pwndrop_data:/config
-    # ports:
-    #   - 6969:8080
     restart: unless-stopped
 volumes:
   pwndrop_data:
     external: true
+
 networks:
   nginx_default:
     external: true

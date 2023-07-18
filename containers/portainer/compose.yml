@@ -14,10 +14,12 @@ services:
       - LETSENCRYPT_HOST=portainer.isame-lab.com
     networks:
       - nginx_default
-networks:
-  nginx_default:
-    external: true
+
 volumes:
   portainer_data:
     external: true
     name: portainer_data
+
+networks:
+  nginx_default:
+    external: true
